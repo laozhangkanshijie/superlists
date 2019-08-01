@@ -1,9 +1,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
-import unittest
+from django.test import LiveServerTestCase
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -19,7 +19,7 @@ class NewVisitorTest(unittest.TestCase):
     def test_can_start_a_list_and_retrieve_it_later(self):
         # 伊迪丝听说有一个很酷的在线待办事项应用
         # 她去看了这个应用的首页
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # 她注意到网页的标题和头部都包含“To-Do"这个词
         self.assertIn('To-Do', self.browser.title)
@@ -60,13 +60,10 @@ class NewVisitorTest(unittest.TestCase):
         # 代办事项表格中显示1：Buy peacock feathers"
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
+        self.fail('Finish the test!')
         # 她看到网站为他生成了一个唯一的URL
         # 而且页面中又一些文字解说这个功能
 
         # 她访问那个URL，发现她的待办事项还在
 
         # 她很满意，去睡觉了
-
-if __name__== '__main__':
-    unittest.main(warnings='ignore')
-
