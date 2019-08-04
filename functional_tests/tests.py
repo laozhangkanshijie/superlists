@@ -82,18 +82,18 @@ class NewVisitorTest(LiveServerTestCase):
         # 页面中看不到伊迪丝的清单
         self.browser.get(self.live_server_url)
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('Buy peacock feathers', page_test)
-        self.assettNotIn('make a fly', page_text)
+        self.assertNotIn('Buy peacock feathers', page_text)
+        self.assertNotIn('make a fly', page_text)
 
         # 弗朗西斯输入一个新待办事项， 新建一个清单
         # 他不像伊迪丝那样兴趣盎然
         inputbox = self.browser.find_element_by_id('id_new_item')
-        inputbox = self.send_keys('Buy milk')
-        inputbox = self.send_keys(Keys.ENTER)
+        inputbox.send_keys('Buy milk')
+        inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy milk')
 
         # 弗朗西斯获得了他的唯一URL
-        francis_lits_url = self.brwser.current_url
+        francis_list_url = self.browser.current_url
         self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
 
